@@ -15,7 +15,12 @@ $(document).ready(function() {
             data: JSON.stringify({ message: userMessage }),
             success: function(response) {
                 var botReply = response.reply;
-                $('#chatBox').append(`<div class="bot-message">${botReply}</div>`);
+                $('#chatBox').append(`
+                    <div class="bot-message">
+                        <img src="https://www.oshukai.fr/wp-content/uploads/2024/11/portrait-Sensei-recadre-247x300.jpg" alt="Bot Profile">
+                        ${botReply}
+                    </div>
+                `);
                 $('#chatBox').scrollTop($('#chatBox')[0].scrollHeight); // Scroll to bottom
             },
             error: function() {

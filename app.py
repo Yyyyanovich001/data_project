@@ -3,7 +3,7 @@ import requests
 
 app = Flask(__name__)
 
-OPENROUTER_API_KEY = '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'  # Replace this correctly
+OPENROUTER_API_KEY = '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'  # Replace this correctly
 OPENROUTER_MODEL = 'mistralai/mistral-small-24b-instruct-2501:free'  # ✅ tested working model
 
 SYSTEM_PROMPT = """
