@@ -3,8 +3,8 @@ import requests
 
 app = Flask(__name__)
 
-OPENROUTER_API_KEY = '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'  # Replace this correctly
-OPENROUTER_MODEL = 'mistralai/mistral-7b-instruct:free'  # ✅ tested working model
+OPENROUTER_API_KEY = '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'  # Replace this correctly
+OPENROUTER_MODEL = 'mistralai/mistral-small-24b-instruct-2501:free'  # ✅ tested working model
 
 SYSTEM_PROMPT = """
 You are a Chill Mentor chatbot.

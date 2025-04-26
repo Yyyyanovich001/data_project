@@ -1,49 +1,94 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: #f0f8ff;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 .chat-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     width: 400px;
-    height: 600px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    height: 500px;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 
-#chat-box {
-    flex-grow: 1;
+.chat-box {
     padding: 20px;
+    flex-grow: 1;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
-.input-area {
+.input-container {
     display: flex;
+    padding: 10px;
+    background-color: #f8f8f8;
     border-top: 1px solid #ddd;
 }
 
-#user-input {
+#userMessage {
     flex-grow: 1;
-    border: none;
-    padding: 15px;
-    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
-#send-button {
+#sendBtn {
+    padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 15px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-#send-button:hover {
+#sendBtn:hover {
     background-color: #45a049;
+}
+
+.user-message,
+.bot-message {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    max-width: 80%;
+    width: fit-content;
+}
+
+.user-message {
+    background-color: #80bfff;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.bot-message {
+    background-color: #d1f7c4;
+    align-self: flex-start;
+    text-align: left;
+}
+
+/* Smooth transition for messages */
+.bot-message, .user-message {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }

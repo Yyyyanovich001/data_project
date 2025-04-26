@@ -2,109 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chill Mentor Chatbot</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f4f8;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        #chatbox {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            background-color: #ffffff;
-        }
-        .message {
-            margin: 10px 0;
-            max-width: 70%;
-            padding: 10px 15px;
-            border-radius: 15px;
-            clear: both;
-        }
-        .user {
-            background-color: #d1e7dd;
-            margin-left: auto;
-            text-align: right;
-        }
-        .bot {
-            background-color: #e2e3e5;
-            margin-right: auto;
-            text-align: left;
-        }
-        #input_area {
-            display: flex;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-top: 1px solid #ccc;
-        }
-        #user_input {
-            flex: 1;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-        #send_btn {
-            padding: 10px 20px;
-            margin-left: 10px;
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        #send_btn:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div id="chatbox"></div>
-
-    <div id="input_area">
-        <input type="text" id="user_input" placeholder="Say something..." />
-        <button id="send_btn">Send</button>
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <!-- Messages will be dynamically inserted here -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="userMessage" placeholder="Type your message..." />
+            <button id="sendBtn">Send</button>
+        </div>
     </div>
 
-    <script>
-    function appendMessage(text, sender) {
-        const messageDiv = $('<div class="message"></div>').addClass(sender);
-        messageDiv.text(text);
-        $('#chatbox').append(messageDiv);
-        $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
-    }
-
-    $('#send_btn').click(function() {
-        const user_message = $('#user_input').val();
-        if (user_message.trim() === '') return;
-        appendMessage("You: " + user_message, 'user');
-        $('#user_input').val('');
-
-        $.ajax({
-            type: 'POST',
-            url: '/chat',
-            contentType: 'application/json',
-            data: JSON.stringify({ message: user_message }),
-            success: function(data) {
-                appendMessage("🧘 Chill Mentor: " + data.reply, 'bot');
-            },
-            error: function(err) {
-                appendMessage("Error: Could not get response.", 'bot');
-            }
-        });
-    });
-
-    $('#user_input').keypress(function(e) {
-        if (e.which === 13) { // Enter key
-            $('#send_btn').click();
-        }
-    });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/script.js"></script>
 </body>
 </html>

@@ -1,31 +1,33 @@
-$(document).ready(function(){
-    $('#send-button').click(function(){
-        sendMessage();
-    });
+$(document).ready(function() {
+    $('#sendBtn').click(function() {
+        var userMessage = $('#userMessage').val();
+        if (userMessage.trim() === "") return; // Prevent sending empty messages
 
-    $('#user-input').keypress(function(e){
-        if(e.which == 13) { // Enter key
-            sendMessage();
-        }
-    });
+        // Append user message to chat
+        $('#chatBox').append(`<div class="user-message">${userMessage}</div>`);
+        $('#userMessage').val(""); // Clear input field
 
-    function sendMessage() {
-        let userInput = $('#user-input').val();
-        if (userInput.trim() === '') return;
-
-        $('#chat-box').append(`<div class="user-message">${userInput}</div>`);
-        $('#user-input').val('');
-        $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
-
+        // Send message to Flask backend (your API)
         $.ajax({
-            url: '/chat',
             type: 'POST',
+            url: '/chat',
             contentType: 'application/json',
-            data: JSON.stringify({ message: userInput }),
-            success: function(data){
-                $('#chat-box').append(`<div class="bot-message">${data.reply}</div>`);
-                $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+            data: JSON.stringify({ message: userMessage }),
+            success: function(response) {
+                var botReply = response.reply;
+                $('#chatBox').append(`<div class="bot-message">${botReply}</div>`);
+                $('#chatBox').scrollTop($('#chatBox')[0].scrollHeight); // Scroll to bottom
+            },
+            error: function() {
+                $('#chatBox').append('<div class="bot-message">Error: Could not get response.</div>');
             }
         });
-    }
+    });
+
+    // Allow pressing 'Enter' to send the message
+    $('#userMessage').keypress(function(e) {
+        if (e.which == 13) {
+            $('#sendBtn').click();
+        }
+    });
 });
